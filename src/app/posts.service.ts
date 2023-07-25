@@ -14,7 +14,7 @@ export class PostsService {
   }
 }
 export class Post1 {
-  id: number | undefined;
+  id!: number;
   body!: string;
   title!: string;
   active!: boolean;

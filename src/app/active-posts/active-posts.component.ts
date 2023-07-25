@@ -1,19 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Post1, PostsService } from '../posts.service';
+import { Component } from '@angular/core';
+import { Post } from 'src/app/models/post';
+import { PostService } from 'src/app/post.service';
 
 @Component({
   selector: 'app-active-posts',
   templateUrl: './active-posts.component.html',
   styleUrls: ['./active-posts.component.scss'],
 })
-export class ActivePostsComponent implements OnInit {
-  activePosts: Post1[] = [];
+export class ActivePostsComponent {
+  constructor(private postSvc: PostService) {}
 
-  constructor(private postsService: PostsService) {}
-
-  ngOnInit(): void {
-    this.postsService.getPosts().subscribe((posts) => {
-      this.activePosts = posts.filter((post) => post.active);
-    });
+  getActivePosts(): Post[] {
+    this.postSvc.takePosts();
+    return this.postSvc.getActivePosts();
   }
 }

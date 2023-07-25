@@ -1,19 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Post1, PostsService } from '../posts.service';
+import { Component } from '@angular/core';
+import { Post } from 'src/app/models/post';
+import { PostService } from 'src/app/post.service';
 
 @Component({
   selector: 'app-inactive-posts',
   templateUrl: './inactive-posts.component.html',
   styleUrls: ['./inactive-posts.component.scss'],
 })
-export class InactivePostsComponent implements OnInit {
-  inactivePosts: Post1[] = [];
+export class InactivePostsComponent {
+  constructor(private postSvc: PostService) {}
 
-  constructor(private postsService: PostsService) {}
-
-  ngOnInit(): void {
-    this.postsService.getPosts().subscribe((posts) => {
-      this.inactivePosts = posts.filter((post) => !post.active);
-    });
+  getInactivePosts(): Post[] {
+    this.postSvc.takePosts();
+    return this.postSvc.getInactivePosts();
   }
 }
